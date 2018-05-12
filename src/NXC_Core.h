@@ -85,6 +85,11 @@ namespace NintendoExtensionCtrl {
 
 		uint8_t lastValue = 0;
 	};
+
+	// Data Assembly
+	inline boolean extractBit(uint8_t data, uint8_t pos) {
+		return data & (1 << pos);
+	}
 }
 
 namespace NXCtrl = NintendoExtensionCtrl;  // Alias for shorter access

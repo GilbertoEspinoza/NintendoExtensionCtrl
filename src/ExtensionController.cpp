@@ -107,7 +107,7 @@ uint8_t ExtensionController::getControlData(uint8_t controlIndex) const {
 }
 
 boolean ExtensionController::getControlBit(uint8_t arrIndex, uint8_t bitNum) const {
-	return !(busData.controlData[arrIndex] & (1 << bitNum));
+	return !NXCtrl::extractBit(busData.controlData[arrIndex], bitNum);  // Inverted, as 'pressed' is 0
 }
 
 void ExtensionController::printDebug(Stream& stream) const {
