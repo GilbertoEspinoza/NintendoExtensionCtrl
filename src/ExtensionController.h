@@ -77,6 +77,25 @@ private:
 
 	ExtensionData & busData;
 	const boolean AllocatedData = false;
+
+protected:
+	uint8_t decodeControlByte(uint8_t index, uint8_t size, uint8_t pos, uint8_t shift) const {
+		return NXCtrl::sliceByte(getControlData(index), size, pos, shift);
+	}
+
+	uint8_t decodeControlByte(uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
+		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) const {
+		return NXCtrl::sliceByte(getControlData(indx1), size1, pos1, shift1) |
+			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2);
+	}
+
+	uint8_t decodeControlByte(uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
+		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2,
+		uint8_t indx3, uint8_t size3, uint8_t pos3, uint8_t shift3) const {
+		return NXCtrl::sliceByte(getControlData(indx1), size1, pos1, shift1) |
+			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2) |
+			NXCtrl::sliceByte(getControlData(indx3), size3, pos3, shift3);
+	}
 };
 
 #endif

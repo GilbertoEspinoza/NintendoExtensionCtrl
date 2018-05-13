@@ -89,6 +89,12 @@ namespace NintendoExtensionCtrl {
 	// Data Assembly
 	inline boolean extractBit(uint8_t data, uint8_t pos) {
 		return data & (1 << pos);
+	};
+
+	inline uint8_t sliceByte(uint8_t data, uint8_t size, uint8_t pos, uint8_t shift) {
+		uint8_t mask = 0xFF >> (8 - size);  // Mask, to size of the data
+		data &= (mask << pos);  // Shift mask to the start position and apply
+		return data >> shift;   // Shift data to final position
 	}
 }
 

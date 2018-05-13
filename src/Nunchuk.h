@@ -25,6 +25,16 @@
 
 #include "ExtensionController.h"
 
+#define NXC_CTRLBYTE_NUNCHUK_JOYX 0
+#define NXC_CTRLBYTE_NUNCHUK_JOYY 1
+
+#define NXC_CTRLBYTE_NUNCHUK_ACCELX 2,  5, 2, 2, 2
+#define NXC_CTRLBYTE_NUNCHUK_ACCELY 3,  5, 2, 4, 4
+#define NXC_CTRLBYTE_NUNCHUK_ACCELZ 4,  5, 2, 6, 6
+
+#define NXC_CTRLBIT_NUNCHUK_C 5, 1
+#define NXC_CTRLBIT_NUNCHUK_Z 5, 0
+
 class Nunchuk : public ExtensionController {
 public:
 	Nunchuk(NXC_I2C_TYPE& i2cBus = NXC_I2C_DEFAULT);
@@ -44,6 +54,12 @@ public:
 	float pitchAngle() const;
 
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT) const;
+
+protected:
+	uint16_t decodeAccelData(uint8_t indx1, uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) const {
+		return (uint16_t)getControlData(indx1) << 2 |
+			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2);
+	}
 };
 
 #endif

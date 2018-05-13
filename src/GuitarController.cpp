@@ -26,11 +26,11 @@ GuitarController::GuitarController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i
 GuitarController::GuitarController(ExtensionData& busData) : ExtensionController(busData, NXC_GuitarController, 6) {}
 
 uint8_t GuitarController::joyX() const {
-	return getControlData(0) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t GuitarController::joyY() const {
-	return getControlData(1) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 boolean GuitarController::strum() const {
@@ -38,39 +38,39 @@ boolean GuitarController::strum() const {
 }
 
 boolean GuitarController::strumUp() const {
-	return getControlBit(5, 0);
+	return getControlBit(NXC_CTRLBIT_GUITAR_STRUMUP);
 }
 
 boolean GuitarController::strumDown() const {
-	return getControlBit(4, 6);
+	return getControlBit(NXC_CTRLBIT_GUITAR_STRUMDOWN);
 }
 
 boolean GuitarController::fretGreen() const {
-	return getControlBit(5, 4);
+	return getControlBit(NXC_CTRLBIT_GUITAR_GREEN);
 }
 
 boolean GuitarController::fretRed() const {
-	return getControlBit(5, 6);
+	return getControlBit(NXC_CTRLBIT_GUITAR_RED);
 }
 
 boolean GuitarController::fretYellow() const {
-	return getControlBit(5, 3);
+	return getControlBit(NXC_CTRLBIT_GUITAR_YELLOW);
 }
 
 boolean GuitarController::fretBlue() const {
-	return getControlBit(5, 5);
+	return getControlBit(NXC_CTRLBIT_GUITAR_BLUE);
 }
 
 boolean GuitarController::fretOrange() const {
-	return getControlBit(5, 7);
+	return getControlBit(NXC_CTRLBIT_GUITAR_ORANGE);
 }
 
 uint8_t GuitarController::whammyBar() const {
-	return getControlData(3) & 0x1F;
+	return decodeControlByte(NXC_CTRLBYTE_GUITAR_WHAMMY);
 }
 
 uint8_t GuitarController::touchbar() const {
-	return getControlData(2) & 0x1F;
+	return decodeControlByte(NXC_CTRLBYTE_GUITAR_TOUCHBAR);
 }
 
 boolean GuitarController::touchGreen() const {
@@ -95,11 +95,11 @@ boolean GuitarController::touchOrange() const {
 }
 
 boolean GuitarController::buttonPlus() const {
-	return getControlBit(4, 2);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean GuitarController::buttonMinus() const {
-	return getControlBit(4, 4);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 boolean GuitarController::supportsTouchbar() {

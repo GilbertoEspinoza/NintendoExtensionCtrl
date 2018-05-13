@@ -26,83 +26,83 @@ ClassicController::ClassicController(NXC_I2C_TYPE& i2cBus) : ExtensionController
 ClassicController::ClassicController(ExtensionData& busData) : ExtensionController(busData, NXC_ClassicController, 6) {}
 
 uint8_t ClassicController::leftJoyX() const {
-	return getControlData(0) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t ClassicController::leftJoyY() const {
-	return getControlData(1) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 uint8_t ClassicController::rightJoyX() const {
-	return ((getControlData(0) >> 3) & 0x18) | ((getControlData(1) >> 5) &  0x06 ) | (getControlData(2) >> 7);
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_RIGHTJOYX);
 }
 
 uint8_t ClassicController::rightJoyY() const {
-	return getControlData(2) & 0x1F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_RIGHTJOYY);
 }
 
 boolean ClassicController::dpadUp() const {
-	return getControlBit(5, 0);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_DPADUP);
 }
 
 boolean ClassicController::dpadDown() const {
-	return getControlBit(4, 6);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_DPADDOWN);
 }
 
 boolean ClassicController::dpadLeft() const {
-	return getControlBit(5, 1);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_DPADLEFT);
 }
 
 boolean ClassicController::dpadRight() const {
-	return getControlBit(4, 7);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_DPADRIGHT);
 }
 
 boolean ClassicController::buttonA() const {
-	return getControlBit(5, 4);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_A);
 }
 
 boolean ClassicController::buttonB() const {
-	return getControlBit(5, 6);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_B);
 }
 
 boolean ClassicController::buttonX() const {
-	return getControlBit(5, 3);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_X);
 }
 
 boolean ClassicController::buttonY() const {
-	return getControlBit(5, 5);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_Y);
 }
 
 uint8_t ClassicController::triggerL() const {
-	return ((getControlData(2) & 0x60) >> 2) | getControlData(3) >> 5;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_TRIGGERL);
 }
 
 uint8_t ClassicController::triggerR() const {
-	return getControlData(3) & 0x1F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_TRIGGERR);
 }
 
 boolean ClassicController::buttonL() const {
-	return getControlBit(4, 5);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_L);
 }
 
 boolean ClassicController::buttonR() const {
-	return getControlBit(4, 1);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_R);
 }
 
 boolean ClassicController::buttonZL() const {
-	return getControlBit(5, 7);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_ZL);
 }
 
 boolean ClassicController::buttonZR() const {
-	return getControlBit(5, 2);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_ZR);
 }
 
 boolean ClassicController::buttonStart() const {
-	return getControlBit(4, 2);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean ClassicController::buttonSelect() const {
-	return getControlBit(4, 4);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 boolean ClassicController::buttonPlus() const {
@@ -114,7 +114,7 @@ boolean ClassicController::buttonMinus() const {
 }
 
 boolean ClassicController::buttonHome() const {
-	return getControlBit(4, 3);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_HOME);
 }
 
 void ClassicController::printDebug(Stream& stream) const {

@@ -26,31 +26,31 @@ Nunchuk::Nunchuk(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_Nunchuk
 Nunchuk::Nunchuk(ExtensionData& busData) : ExtensionController(busData, NXC_Nunchuk, 6) {}
 
 uint8_t Nunchuk::joyX() const {
-	return getControlData(0);
+	return getControlData(NXC_CTRLBYTE_NUNCHUK_JOYX);
 }
 
 uint8_t Nunchuk::joyY() const {
-	return getControlData(1);
+	return getControlData(NXC_CTRLBYTE_NUNCHUK_JOYY);
 }
 
 uint16_t Nunchuk::accelX() const {
-	return getControlData(2) << 2 | ((getControlData(5) >> 2) & 0x03) ;
+	return decodeAccelData(NXC_CTRLBYTE_NUNCHUK_ACCELX);
 }
 
 uint16_t Nunchuk::accelY() const {
-	return getControlData(3) << 2 | ((getControlData(5) >> 4) & 0x03);
+	return decodeAccelData(NXC_CTRLBYTE_NUNCHUK_ACCELY);
 }
 
 uint16_t Nunchuk::accelZ() const {
-	return getControlData(4) << 2 | ((getControlData(5) >> 6) & 0x03);
+	return decodeAccelData(NXC_CTRLBYTE_NUNCHUK_ACCELZ);
 }
 
 boolean Nunchuk::buttonC() const {
-	return getControlBit(5, 1);
+	return getControlBit(NXC_CTRLBIT_NUNCHUK_C);
 }
 
 boolean Nunchuk::buttonZ() const {
-	return getControlBit(5, 0);
+	return getControlBit(NXC_CTRLBIT_NUNCHUK_Z);
 }
 
 float Nunchuk::rollAngle() const {

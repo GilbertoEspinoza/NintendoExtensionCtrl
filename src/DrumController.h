@@ -24,6 +24,20 @@
 #define NXC_DrumController_h
 
 #include "ExtensionController.h"
+#include "ClassicController.h"  // For joy and +/- byte defines
+
+#define NXC_CTRLBIT_DRUMS_RED 5, 6
+#define NXC_CTRLBIT_DRUMS_BLUE 5, 3
+#define NXC_CTRLBIT_DRUMS_GREEN 5, 4
+
+#define NXC_CTRLBIT_DRUMS_YELLOW 5, 5
+#define NXC_CTRLBIT_DRUMS_ORANGE 5, 7
+
+#define NXC_CTRLBIT_DRUMS_PEDAL 5, 2
+
+#define NXC_CTRLBYTE_DRUMS_VELOCITY 3, 3, 5, 5
+#define NXC_CTRLBYTE_DRUMS_VELOCITY_ID 2, 5, 1, 1
+#define NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE 2, 6
 
 enum NXC_DrumVelocityID {
 	NXC_Drum_None = 0x1F,

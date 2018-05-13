@@ -26,51 +26,51 @@ DrumController::DrumController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBu
 DrumController::DrumController(ExtensionData& busData) : ExtensionController(busData, NXC_DrumController, 6) {}
 
 uint8_t DrumController::joyX() const {
-	return getControlData(0) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t DrumController::joyY() const {
-	return getControlData(1) & 0x3F;
+	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 boolean DrumController::drumRed() const {
-	return getControlBit(5, 6);
+	return getControlBit(NXC_CTRLBIT_DRUMS_RED);
 }
 
 boolean DrumController::drumBlue() const {
-	return getControlBit(5, 3);
+	return getControlBit(NXC_CTRLBIT_DRUMS_BLUE);
 }
 
 boolean DrumController::drumGreen() const {
-	return getControlBit(5, 4);
+	return getControlBit(NXC_CTRLBIT_DRUMS_GREEN);
 }
 
 boolean DrumController::cymbalYellow() const {
-	return getControlBit(5, 5);
+	return getControlBit(NXC_CTRLBIT_DRUMS_YELLOW);
 }
 
 boolean DrumController::cymbalOrange() const {
-	return getControlBit(5, 7);
+	return getControlBit(NXC_CTRLBIT_DRUMS_ORANGE);
 }
 
 boolean DrumController::bassPedal() const {
-	return getControlBit(5, 2);
+	return getControlBit(NXC_CTRLBIT_DRUMS_PEDAL);
 }
 
 boolean DrumController::buttonPlus() const {
-	return getControlBit(4, 2);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean DrumController::buttonMinus() const {
-	return getControlBit(4, 4);
+	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 boolean DrumController::velocityAvailable() const {
-	return getControlBit(2, 6);
+	return getControlBit(NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE);
 }
 
 NXC_DrumVelocityID DrumController::velocityID() const {
-	uint8_t velocityID = (getControlData(2) & 0x3E) >> 1;  // 5 bit identifier
+	uint8_t velocityID = decodeControlByte(NXC_CTRLBYTE_DRUMS_VELOCITY_ID);  // 5 bit identifier
 
 	if (validVelocityID(velocityID)) {
 		return (NXC_DrumVelocityID) velocityID;
@@ -97,7 +97,7 @@ boolean DrumController::validVelocityID(uint8_t idIn) const {
 
 uint8_t DrumController::velocity() const {
 	if (velocityAvailable()) {
-		uint8_t velocityRaw = (getControlData(3) & 0xE0) >> 5;
+		uint8_t velocityRaw = decodeControlByte(NXC_CTRLBYTE_DRUMS_VELOCITY);
 		velocityRaw = 7 - velocityRaw;  // Invert so high = fast attack
 		return velocityRaw;
 	}

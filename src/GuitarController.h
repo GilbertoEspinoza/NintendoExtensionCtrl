@@ -24,6 +24,19 @@
 #define NXC_GuitarController_h
 
 #include "ExtensionController.h"
+#include "ClassicController.h"  // For joy and +/- byte defines
+
+#define NXC_CTRLBIT_GUITAR_STRUMUP 5, 0
+#define NXC_CTRLBIT_GUITAR_STRUMDOWN 4, 6
+
+#define NXC_CTRLBIT_GUITAR_GREEN 5, 4
+#define NXC_CTRLBIT_GUITAR_RED 5, 6
+#define NXC_CTRLBIT_GUITAR_YELLOW 5, 3
+#define NXC_CTRLBIT_GUITAR_BLUE 5, 5
+#define NXC_CTRLBIT_GUITAR_ORANGE 5, 7
+
+#define NXC_CTRLBYTE_GUITAR_WHAMMY 3, 5, 0, 0
+#define NXC_CTRLBYTE_GUITAR_TOUCHBAR 2, 5, 0, 0
 
 class GuitarController : public ExtensionController {
 public:
