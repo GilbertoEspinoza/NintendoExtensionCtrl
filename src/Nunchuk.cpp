@@ -53,6 +53,34 @@ boolean Nunchuk::buttonZ() const {
 	return getControlBit(NXC_CTRLBIT_NUNCHUK_Z);
 }
 
+void Nunchuk::joyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_NUNCHUK_JOYX);
+}
+
+void Nunchuk::joyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_NUNCHUK_JOYY);
+}
+
+void Nunchuk::accelX(uint16_t dataIn) {
+	setAccelControlData(dataIn, NXC_CTRLBYTE_NUNCHUK_ACCELX);
+}
+
+void Nunchuk::accelY(uint16_t dataIn) {
+	setAccelControlData(dataIn, NXC_CTRLBYTE_NUNCHUK_ACCELY);
+}
+
+void Nunchuk::accelZ(uint16_t dataIn) {
+	setAccelControlData(dataIn, NXC_CTRLBYTE_NUNCHUK_ACCELZ);
+}
+
+void Nunchuk::buttonC(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_NUNCHUK_C);
+}
+
+void Nunchuk::buttonZ(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_NUNCHUK_Z);
+}
+
 float Nunchuk::rollAngle() const {
 	return atan2((float)accelX() - 511.0, (float)accelZ() - 511.0) * 180.0 / PI;
 }

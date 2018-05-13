@@ -82,6 +82,23 @@ public:
 	uint8_t velocityOrange() const;
 	uint8_t velocityPedal() const;
 
+	void joyX(uint8_t dataIn);
+	void joyY(uint8_t dataIn);
+
+	void drumRed(boolean bitIn);
+	void drumBlue(boolean bitIn);
+	void drumGreen(boolean bitIn);
+
+	void cymbalYellow(boolean bitIn);
+	void cymbalOrange(boolean bitIn);
+
+	void bassPedal(boolean bitIn);
+
+	void buttonPlus(boolean bitIn);
+	void buttonMinus(boolean bitIn);
+
+	void velocity(uint8_t dataIn, NXC_DrumVelocityID idIn);
+
 	void printDebug(Stream& stream = NXC_SERIAL_DEFAULT) const;
 private:
 	boolean validVelocityID(uint8_t idIn) const;

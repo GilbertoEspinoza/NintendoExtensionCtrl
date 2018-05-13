@@ -96,6 +96,32 @@ protected:
 			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2) |
 			NXCtrl::sliceByte(getControlData(indx3), size3, pos3, shift3);
 	}
+
+	void setControlData(uint8_t newData, uint8_t index) {
+		if(index < NXC_CONTROL_DATA_MAX) { busData.controlData[index] = newData; }
+	}
+
+	void setControlData(uint8_t newData, uint8_t index, uint8_t size, uint8_t pos, uint8_t shift) {
+		setControlData(NXCtrl::mergeSlice(newData, getControlData(index), size, pos, shift), index);
+	}
+
+	void setControlData(uint8_t newData, uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
+		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) {
+		setControlData(newData, indx1, size1, pos1, shift1);
+		setControlData(newData, indx2, size2, pos2, shift2);
+	}
+
+	void setControlData(uint8_t newData, uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
+		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2,
+		uint8_t indx3, uint8_t size3, uint8_t pos3, uint8_t shift3) {
+		setControlData(newData, indx1, size1, pos1, shift1);
+		setControlData(newData, indx2, size2, pos2, shift2);
+		setControlData(newData, indx3, size3, pos3, shift3);
+	}
+
+	void setControlBit(boolean newData, uint8_t index, uint8_t pos) {
+		setControlData(NXCtrl::mergeBit(!newData, getControlData(index), pos), index);  // Inverted, as 'pressed' is 0
+	}
 };
 
 #endif

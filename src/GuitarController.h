@@ -68,6 +68,25 @@ public:
 	boolean buttonPlus() const;
 	boolean buttonMinus() const;
 
+	void joyX(uint8_t dataIn);
+	void joyY(uint8_t dataIn);
+
+	void strumUp(boolean bitIn);
+	void strumDown(boolean bitIn);
+
+	void fretGreen(boolean bitIn);
+	void fretRed(boolean bitIn);
+	void fretYellow(boolean bitIn);
+	void fretBlue(boolean bitIn);
+	void fretOrange(boolean bitIn);
+
+	void whammyBar(uint8_t dataIn);
+
+	void touchbar(uint8_t dataIn);
+
+	void buttonPlus(boolean bitIn);
+	void buttonMinus(boolean bitIn);
+
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT);
 
 	boolean supportsTouchbar();

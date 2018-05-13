@@ -117,6 +117,98 @@ boolean ClassicController::buttonHome() const {
 	return getControlBit(NXC_CTRLBIT_CLASSIC_HOME);
 }
 
+void ClassicController::leftJoyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+}
+
+void ClassicController::leftJoyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+}
+
+void ClassicController::rightJoyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_RIGHTJOYX);
+}
+
+void ClassicController::rightJoyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_RIGHTJOYY);
+}
+
+void ClassicController::dpadUp(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_DPADUP);
+}
+
+void ClassicController::dpadDown(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_DPADDOWN);
+}
+
+void ClassicController::dpadLeft(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_DPADLEFT);
+}
+
+void ClassicController::dpadRight(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_DPADRIGHT);
+}
+
+void ClassicController::buttonA(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_A);
+}
+
+void ClassicController::buttonB(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_B);
+}
+
+void ClassicController::buttonX(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_X);
+}
+
+void ClassicController::buttonY(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_Y);
+}
+
+void ClassicController::triggerL(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_TRIGGERL);
+}
+
+void ClassicController::triggerR(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_TRIGGERR);
+}
+
+void ClassicController::buttonL(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_L);
+}
+
+void ClassicController::buttonR(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_R);
+}
+
+void ClassicController::buttonZL(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_ZL);
+}
+
+void ClassicController::buttonZR(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_ZR);
+}
+
+void ClassicController::buttonStart(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+}
+
+void ClassicController::buttonSelect(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+}
+
+void ClassicController::buttonPlus(boolean bitIn) {
+	buttonStart(bitIn);
+}
+
+void ClassicController::buttonMinus(boolean bitIn) {
+	buttonSelect(bitIn);
+}
+
+void ClassicController::buttonHome(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_HOME);
+}
+
 void ClassicController::printDebug(Stream& stream) const {
 	const char fillCharacter = '_';
 

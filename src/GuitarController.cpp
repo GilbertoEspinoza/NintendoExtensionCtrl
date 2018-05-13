@@ -102,6 +102,58 @@ boolean GuitarController::buttonMinus() const {
 	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
+void GuitarController::joyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+}
+
+void GuitarController::joyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+}
+
+void GuitarController::strumUp(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_STRUMUP);
+}
+
+void GuitarController::strumDown(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_STRUMDOWN);
+}
+
+void GuitarController::fretGreen(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_GREEN);
+}
+
+void GuitarController::fretRed(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_RED);
+}
+
+void GuitarController::fretYellow(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_YELLOW);
+}
+
+void GuitarController::fretBlue(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_BLUE);
+}
+
+void GuitarController::fretOrange(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_GUITAR_ORANGE);
+}
+
+void GuitarController::whammyBar(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_GUITAR_WHAMMY);
+}
+
+void GuitarController::touchbar(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_GUITAR_TOUCHBAR);
+}
+
+void GuitarController::buttonPlus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+}
+
+void GuitarController::buttonMinus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+}
+
 boolean GuitarController::supportsTouchbar() {
 	if (touchbarData) {
 		return true;

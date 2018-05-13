@@ -48,7 +48,7 @@ uint8_t DJTurntableController::effectDial() const {
 }
 
 int8_t DJTurntableController::crossfadeSlider() const {
-	return (int8_t) decodeControlByte(NXC_CTRLBYTE_DJ_CROSSFADE) - 8;  // Shifted to signed int
+	return (int8_t) decodeControlByte(NXC_CTRLBYTE_DJ_CROSSFADE) + CrossfadeOffset;  // Shifted to signed int
 }
 
 boolean DJTurntableController::buttonEuphoria() const {
@@ -69,6 +69,36 @@ boolean DJTurntableController::buttonPlus() const {
 
 boolean DJTurntableController::buttonMinus() const {
 	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
+}
+
+void DJTurntableController::effectDial(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_DJ_EFFECT);
+}
+
+void DJTurntableController::crossfadeSlider(int8_t dataIn) {
+	if (dataIn < CrossfadeOffset) { dataIn = CrossfadeOffset; }  // Keep in range
+	dataIn -= CrossfadeOffset;  // Remove the offset
+	setControlData((uint8_t) dataIn, NXC_CTRLBYTE_DJ_CROSSFADE);
+}
+
+void DJTurntableController::buttonEuphoria(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DJ_EUPHORIA);
+}
+
+void DJTurntableController::joyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+}
+
+void DJTurntableController::joyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+}
+
+void DJTurntableController::buttonPlus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+}
+
+void DJTurntableController::buttonMinus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 NXC_DJTurntable_Configuration DJTurntableController::getTurntableConfig() {
@@ -205,6 +235,23 @@ boolean DJTurntableController::TurntableLeft::buttonBlue() const {
 	return base.getControlBit(NXC_CTRLBIT_DJ_LEFT_BLUE);
 }
 
+void DJTurntableController::TurntableLeft::turntable(int8_t dataIn) {
+	base.setControlData(dataIn, NXC_CTRLBYTE_DJ_LEFT_TURNTABLE);
+	base.setControlData(dataIn >> 7, NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN);
+}
+
+void DJTurntableController::TurntableLeft::buttonGreen(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_LEFT_GREEN);
+}
+
+void DJTurntableController::TurntableLeft::buttonRed(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_LEFT_RED);
+}
+
+void DJTurntableController::TurntableLeft::buttonBlue(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_LEFT_BLUE);
+}
+
 // Right Turntable
 int8_t DJTurntableController::TurntableRight::turntable() const {
 	int8_t turnData = (int8_t) base.decodeControlByte(NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE);
@@ -223,6 +270,23 @@ boolean DJTurntableController::TurntableRight::buttonRed() const {
 
 boolean DJTurntableController::TurntableRight::buttonBlue() const {
 	return base.getControlBit(NXC_CTRLBIT_DJ_RIGHT_BLUE);
+}
+
+void DJTurntableController::TurntableRight::turntable(int8_t dataIn) {
+	base.setControlData(dataIn, NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE);
+	base.setControlData(dataIn >> 7, NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN);
+}
+
+void DJTurntableController::TurntableRight::buttonGreen(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_RIGHT_GREEN);
+}
+
+void DJTurntableController::TurntableRight::buttonRed(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_RIGHT_RED);
+}
+
+void DJTurntableController::TurntableRight::buttonBlue(boolean bitIn) {
+	base.setControlBit(bitIn, NXC_CTRLBIT_DJ_RIGHT_BLUE);
 }
 
 // Effect Rollover

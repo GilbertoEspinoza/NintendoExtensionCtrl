@@ -96,6 +96,22 @@ namespace NintendoExtensionCtrl {
 		data &= (mask << pos);  // Shift mask to the start position and apply
 		return data >> shift;   // Shift data to final position
 	}
+
+	inline uint8_t mergeSlice(uint8_t newData, uint8_t mergeData, uint8_t size, uint8_t pos, uint8_t shift) {
+		uint8_t mask = 0xFF >> (8 - size);  // Mask, to size of the data
+		mergeData &= ~(mask << pos);  // Clear existing data at merge position
+		mask <<= (pos - shift);  // Shift mask to position of moved data
+		return mergeData |= ((newData & mask) << shift);  // Apply mask and merge
+	}
+
+	inline uint8_t mergeBit(boolean newBit, uint8_t mergeData, uint8_t pos) {
+		if (newBit == 1) {
+			return mergeData |= (0x01 << pos);  // Set bit at position to 1
+		}
+		else {
+			return mergeData &= ~(0x01 << pos);  // Set bit at position to 0
+		}
+	}
 }
 
 namespace NXCtrl = NintendoExtensionCtrl;  // Alias for shorter access

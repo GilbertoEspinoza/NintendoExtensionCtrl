@@ -53,7 +53,6 @@
 #define NXC_CTRLBIT_CLASSIC_MINUS 4, 4
 #define NXC_CTRLBIT_CLASSIC_HOME 4, 3
 
-
 class ClassicController : public ExtensionController {
 public:
 	ClassicController(NXC_I2C_TYPE& i2cBus = NXC_I2C_DEFAULT);
@@ -91,7 +90,40 @@ public:
 	boolean buttonMinus() const;
 
 	boolean buttonHome() const;
-	
+
+	void leftJoyX(uint8_t dataIn);
+	void leftJoyY(uint8_t dataIn);
+
+	void rightJoyX(uint8_t dataIn);
+	void rightJoyY(uint8_t dataIn);
+
+	void dpadUp(boolean bitIn);
+	void dpadDown(boolean bitIn);
+	void dpadLeft(boolean bitIn);
+	void dpadRight(boolean bitIn);
+
+	void buttonA(boolean bitIn);
+	void buttonB(boolean bitIn);
+	void buttonX(boolean bitIn);
+	void buttonY(boolean bitIn);
+
+	void triggerL(uint8_t dataIn);
+	void triggerR(uint8_t dataIn);
+
+	void buttonL(boolean bitIn);
+	void buttonR(boolean bitIn);
+
+	void buttonZL(boolean bitIn);
+	void buttonZR(boolean bitIn);
+
+	void buttonStart(boolean bitIn);
+	void buttonSelect(boolean bitIn);
+
+	void buttonPlus(boolean bitIn);
+	void buttonMinus(boolean bitIn);
+
+	void buttonHome(boolean bitIn);
+
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT) const;
 };
 

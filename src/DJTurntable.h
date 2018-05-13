@@ -72,6 +72,17 @@ public:
 	boolean buttonPlus() const;
 	boolean buttonMinus() const;
 
+	void effectDial(uint8_t dataIn);
+	void crossfadeSlider(int8_t dataIn);
+
+	void buttonEuphoria(boolean bitIn);
+
+	void joyX(uint8_t dataIn);
+	void joyY(uint8_t dataIn);
+
+	void buttonPlus(boolean bitIn);
+	void buttonMinus(boolean bitIn);
+
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT);
 
 	NXC_DJTurntable_Configuration getTurntableConfig();
@@ -89,10 +100,16 @@ public:
 		virtual boolean buttonRed() const = 0;
 		virtual boolean buttonBlue() const = 0;
 
+		virtual void turntable(int8_t dataIn) = 0;
+
+		virtual void buttonGreen(boolean bitIn) = 0;
+		virtual void buttonRed(boolean bitIn) = 0;
+		virtual void buttonBlue(boolean bitIn) = 0;
+
 		const NXC_DJTurntable_Configuration side = NXC_DJTurntable_BaseOnly;
 	protected:
 		int8_t tableSignConversion(int8_t turnData) const;
-		const DJTurntableController & base;
+		DJTurntableController & base;
 	};
 
 	class TurntableLeft : public TurntableExpansion {
@@ -103,7 +120,13 @@ public:
 
 		boolean buttonGreen() const;
 		boolean buttonRed() const;
-		boolean buttonBlue()  const;
+		boolean buttonBlue() const;
+
+		void turntable(int8_t dataIn);
+
+		void buttonGreen(boolean bitIn);
+		void buttonRed(boolean bitIn);
+		void buttonBlue(boolean bitIn);
 	} left;
 
 	class TurntableRight: public TurntableExpansion {
@@ -115,6 +138,12 @@ public:
 		boolean buttonGreen() const;
 		boolean buttonRed() const;
 		boolean buttonBlue() const;
+
+		void turntable(int8_t dataIn);
+
+		void buttonGreen(boolean bitIn);
+		void buttonRed(boolean bitIn);
+		void buttonBlue(boolean bitIn);
 	} right;
 
 	class EffectRollover : private NXCtrl::RolloverChange {
@@ -128,6 +157,7 @@ public:
 private:
 	void printTurntable(Stream& stream, TurntableExpansion &table) const;
 
+	static const int8_t CrossfadeOffset = -8;  // Convert the crossfade to +/- about 0
 	NXC_DJTurntable_Configuration tableConfig = NXC_DJTurntable_BaseOnly;
 };
 

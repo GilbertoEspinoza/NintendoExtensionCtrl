@@ -50,6 +50,16 @@ public:
 	boolean buttonC() const;
 	boolean buttonZ() const;
 
+	void joyX(uint8_t dataIn);
+	void joyY(uint8_t dataIn);
+
+	void accelX(uint16_t dataIn);
+	void accelY(uint16_t dataIn);
+	void accelZ(uint16_t dataIn);
+
+	void buttonC(boolean bitIn);
+	void buttonZ(boolean bitIn);
+
 	float rollAngle() const;  // -180.0 to 180.0
 	float pitchAngle() const;
 
@@ -59,6 +69,11 @@ protected:
 	uint16_t decodeAccelData(uint8_t indx1, uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) const {
 		return (uint16_t)getControlData(indx1) << 2 |
 			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2);
+	}
+
+	void setAccelControlData(uint16_t newData, uint8_t indx1, uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) {
+		setControlData((uint8_t) ((newData >> 2) & 0xFF), indx1);
+		setControlData((uint8_t) (newData & 0xFF), indx2, size2, pos2, shift2);
 	}
 };
 

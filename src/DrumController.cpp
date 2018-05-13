@@ -135,6 +135,54 @@ uint8_t DrumController::velocityPedal() const {
 	return velocity(NXC_Drum_Pedal);  // Fix this
 }
 
+void DrumController::joyX(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+}
+
+void DrumController::joyY(uint8_t dataIn) {
+	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+}
+
+void DrumController::drumRed(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_RED);
+}
+
+void DrumController::drumBlue(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_BLUE);
+}
+
+void DrumController::drumGreen(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_GREEN);
+}
+
+void DrumController::cymbalYellow(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_YELLOW);
+}
+
+void DrumController::cymbalOrange(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_ORANGE);
+}
+
+void DrumController::bassPedal(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_DRUMS_PEDAL);
+}
+
+void DrumController::buttonPlus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+}
+
+void DrumController::buttonMinus(boolean bitIn) {
+	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+}
+
+void DrumController::velocity(uint8_t dataIn, NXC_DrumVelocityID idIn) {
+	if (dataIn > 7) { dataIn = 7; }  // Keep in range
+	dataIn = 7 - dataIn;  // Re-invert, so hard is low again (matching expected data)
+	setControlBit(idIn != NXC_Drum_None, NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE);
+	setControlData(idIn, NXC_CTRLBYTE_DRUMS_VELOCITY_ID);
+	setControlData(dataIn, NXC_CTRLBYTE_DRUMS_VELOCITY);
+}
+
 void DrumController::printDebug(Stream& stream) const {
 	const char fillCharacter = '_';
 	
