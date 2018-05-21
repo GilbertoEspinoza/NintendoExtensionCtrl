@@ -87,6 +87,20 @@ namespace NintendoExtensionCtrl {
 	};
 
 	// Data Assembly
+	typedef uint8_t ControlIndex;
+
+	struct ControlByteMap {
+		uint8_t index;     // Index in the control data array
+		uint8_t size;      // Size of the data, in bits
+		uint8_t position;  // Start position of the data, in bits from right
+		uint8_t offset;    // Amount to shift the final data to the right
+	};
+
+	struct ControlBitMap {
+		uint8_t index;     // Index in the control data array
+		uint8_t position;  // Start position of the data, in bits from right
+	};
+
 	inline boolean extractBit(uint8_t data, uint8_t pos) {
 		return data & (1 << pos);
 	};

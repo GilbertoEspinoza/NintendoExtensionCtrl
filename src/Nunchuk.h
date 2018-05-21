@@ -25,15 +25,23 @@
 
 #include "ExtensionController.h"
 
-#define NXC_CTRLBYTE_NUNCHUK_JOYX 0
-#define NXC_CTRLBYTE_NUNCHUK_JOYY 1
+namespace NintendoExtensionCtrl {
+	struct AccelControlMap {
+		ControlIndex msb;    // Index in the control data array, MSB (8:2)
+		uint8_t offset;      // Offset for the high byte (shifted left)
+		ControlByteMap lsb;  // Map for the LSB (1:0)
+	};
+}
 
-#define NXC_CTRLBYTE_NUNCHUK_ACCELX 2,  5, 2, 2, 2
-#define NXC_CTRLBYTE_NUNCHUK_ACCELY 3,  5, 2, 4, 4
-#define NXC_CTRLBYTE_NUNCHUK_ACCELZ 4,  5, 2, 6, 6
+constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYX = { 0 };
+constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYY = { 1 };
 
-#define NXC_CTRLBIT_NUNCHUK_C 5, 1
-#define NXC_CTRLBIT_NUNCHUK_Z 5, 0
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELX = { 2, 2,  5, 2, 2, 2 };
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELY = { 3, 2,  5, 2, 4, 4 };
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELZ = { 4, 2,  5, 2, 6, 6 };
+
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_C = { 5, 1 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_Z = { 5, 0 };
 
 class Nunchuk : public ExtensionController {
 public:
@@ -66,14 +74,14 @@ public:
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT) const;
 
 protected:
-	uint16_t decodeAccelData(uint8_t indx1, uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) const {
-		return (uint16_t)getControlData(indx1) << 2 |
-			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2);
+	uint16_t decodeAccelData(const NintendoExtensionCtrl::AccelControlMap map) const {
+		return (uint16_t)getControlData(map.msb) << map.offset |
+			NXCtrl::sliceByte(getControlData(map.lsb.index), map.lsb.size, map.lsb.position, map.lsb.offset);
 	}
 
-	void setAccelControlData(uint16_t newData, uint8_t indx1, uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) {
-		setControlData((uint8_t) ((newData >> 2) & 0xFF), indx1);
-		setControlData((uint8_t) (newData & 0xFF), indx2, size2, pos2, shift2);
+	void setAccelControlData(uint16_t newData, const NintendoExtensionCtrl::AccelControlMap map) {
+		setControlData((uint8_t) ((newData >> map.offset) & 0xFF), map.msb);
+		setControlData((uint8_t)(newData & 0xFF), map.lsb);
 	}
 };
 

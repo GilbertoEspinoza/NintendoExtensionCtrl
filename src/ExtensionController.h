@@ -79,48 +79,40 @@ private:
 	const boolean AllocatedData = false;
 
 protected:
-	uint8_t decodeControlByte(uint8_t index, uint8_t size, uint8_t pos, uint8_t shift) const {
-		return NXCtrl::sliceByte(getControlData(index), size, pos, shift);
+	uint8_t decodeControlByte(const NXCtrl::ControlByteMap map) const {
+		return NXCtrl::sliceByte(getControlData(map.index), map.size, map.position, map.offset);
 	}
 
-	uint8_t decodeControlByte(uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
-		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) const {
-		return NXCtrl::sliceByte(getControlData(indx1), size1, pos1, shift1) |
-			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2);
-	}
-
-	uint8_t decodeControlByte(uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
-		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2,
-		uint8_t indx3, uint8_t size3, uint8_t pos3, uint8_t shift3) const {
-		return NXCtrl::sliceByte(getControlData(indx1), size1, pos1, shift1) |
-			NXCtrl::sliceByte(getControlData(indx2), size2, pos2, shift2) |
-			NXCtrl::sliceByte(getControlData(indx3), size3, pos3, shift3);
+	template<size_t size>
+	uint8_t decodeControlByte(const NXCtrl::ControlByteMap(&map)[size]) const {
+		uint8_t dataOut = 0x00;
+		for (size_t i = 0; i < size; i++) {
+			dataOut |= NXCtrl::sliceByte(getControlData(map[i].index), map[i].size, map[i].position, map[i].offset);
+		}
+		return dataOut;
 	}
 
 	void setControlData(uint8_t newData, uint8_t index) {
-		if(index < NXC_CONTROL_DATA_MAX) { busData.controlData[index] = newData; }
+		if (index < NXC_CONTROL_DATA_MAX) { busData.controlData[index] = newData; }
 	}
 
-	void setControlData(uint8_t newData, uint8_t index, uint8_t size, uint8_t pos, uint8_t shift) {
-		setControlData(NXCtrl::mergeSlice(newData, getControlData(index), size, pos, shift), index);
+	void setControlData(uint8_t newData, const NXCtrl::ControlByteMap map) {
+		setControlData(NXCtrl::mergeSlice(newData, getControlData(map.index), map.size, map.position, map.offset), map.index);
 	}
 
-	void setControlData(uint8_t newData, uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
-		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2) {
-		setControlData(newData, indx1, size1, pos1, shift1);
-		setControlData(newData, indx2, size2, pos2, shift2);
+	template<size_t size>
+	void setControlData(uint8_t newData, const NXCtrl::ControlByteMap(&map)[size]) {
+		for (size_t i = 0; i < size; i++) {
+			setControlData(newData, map[i]);
+		}
 	}
 
-	void setControlData(uint8_t newData, uint8_t indx1, uint8_t size1, uint8_t pos1, uint8_t shift1,
-		uint8_t indx2, uint8_t size2, uint8_t pos2, uint8_t shift2,
-		uint8_t indx3, uint8_t size3, uint8_t pos3, uint8_t shift3) {
-		setControlData(newData, indx1, size1, pos1, shift1);
-		setControlData(newData, indx2, size2, pos2, shift2);
-		setControlData(newData, indx3, size3, pos3, shift3);
+	boolean getControlBit(const NXCtrl::ControlBitMap map) const {
+		return !NXCtrl::extractBit(busData.controlData[map.index], map.position);  // Inverted, as 'pressed' is 0
 	}
 
-	void setControlBit(boolean newData, uint8_t index, uint8_t pos) {
-		setControlData(NXCtrl::mergeBit(!newData, getControlData(index), pos), index);  // Inverted, as 'pressed' is 0
+	void setControlBit(boolean newData, const NXCtrl::ControlBitMap map) {
+		setControlData(NXCtrl::mergeBit(!newData, getControlData(map.index), map.position), map.index);  // Inverted, as 'pressed' is 0
 	}
 };
 

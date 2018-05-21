@@ -26,22 +26,22 @@
 #include "ExtensionController.h"
 #include "ClassicController.h"  // For joy and +/- byte defines
 
-#define NXC_CTRLBYTE_DJ_LEFT_TURNTABLE 3, 5, 0, 0
-#define NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN 4, 1, 0, 0
-#define NXC_CTRLBIT_DJ_LEFT_GREEN 5, 3
-#define NXC_CTRLBIT_DJ_LEFT_RED 4, 5
-#define NXC_CTRLBIT_DJ_LEFT_BLUE 5, 7
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE = { 3, 5, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN = { 4, 1, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_GREEN = { 5, 3 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_RED = { 4, 5 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_BLUE = { 5, 7 };
 
-#define NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE 0, 2, 6, 3,  1, 2, 6, 5,  2, 1, 7, 7
-#define NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN 2, 1, 0, 0
-#define NXC_CTRLBIT_DJ_RIGHT_GREEN 5, 5
-#define NXC_CTRLBIT_DJ_RIGHT_RED 4, 1
-#define NXC_CTRLBIT_DJ_RIGHT_BLUE 5, 2
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE[3] = { 0, 2, 6, 3,  1, 2, 6, 5,  2, 1, 7, 7 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN = { 2, 1, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_GREEN = { 5, 5 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_RED = { 4, 1 };
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_BLUE = { 5, 2 };
 
-#define NXC_CTRLBYTE_DJ_EFFECT 2, 2, 5, 2,  3, 3, 5, 5
-#define NXC_CTRLBYTE_DJ_CROSSFADE 2, 4, 1, 1
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_EFFECT[2] = { 2, 2, 5, 2,  3, 3, 5, 5 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_CROSSFADE = { 2, 4, 1, 1 };
 
-#define NXC_CTRLBIT_DJ_EUPHORIA 5, 4
+constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_EUPHORIA = { 5, 4 };
 
 enum NXC_DJTurntable_Configuration {
 	NXC_DJTurntable_BaseOnly,
