@@ -87,15 +87,28 @@ namespace NintendoExtensionCtrl {
 	};
 
 	// Data Assembly
+	constexpr uint8_t BuildMask(uint8_t size, uint8_t startPos) {
+		return (0xFF >> (8 - size)) << startPos;  // Bitmask, to size and position of the data
+	}
+
+	// -- Alias for control index positions
 	typedef uint8_t ControlIndex;
 
+	// -- Mapping information for the location of control data
 	struct ControlByteMap {
-		uint8_t index;     // Index in the control data array
-		uint8_t size;      // Size of the data, in bits
-		uint8_t position;  // Start position of the data, in bits from right
-		uint8_t offset;    // Amount to shift the final data to the right
+		constexpr ControlByteMap(
+			uint8_t index,     // Index in the control data array
+			uint8_t size,      // Size of the data block, in bits
+			uint8_t position,  // Start position of the data block, in bits from right
+			uint8_t offset)    // Amount to shift the final data to the right
+			: index(index), mask(BuildMask(size, position)), offset(offset) {}
+
+		uint8_t index;
+		uint8_t mask;  // Data mask for bitwise operations, formed from size and start position
+		uint8_t offset;
 	};
 
+	// -- Mapping information for the location of control bits
 	struct ControlBitMap {
 		uint8_t index;     // Index in the control data array
 		uint8_t position;  // Start position of the data, in bits from right
@@ -105,17 +118,14 @@ namespace NintendoExtensionCtrl {
 		return data & (1 << pos);
 	};
 
-	inline uint8_t sliceByte(uint8_t data, uint8_t size, uint8_t pos, uint8_t shift) {
-		uint8_t mask = 0xFF >> (8 - size);  // Mask, to size of the data
-		data &= (mask << pos);  // Shift mask to the start position and apply
-		return data >> shift;   // Shift data to final position
+	inline uint8_t sliceByte(uint8_t data, uint8_t mask, uint8_t offset) {
+		return (data & mask) >> offset;  // Apply mask and shift
 	}
 
-	inline uint8_t mergeSlice(uint8_t newData, uint8_t mergeData, uint8_t size, uint8_t pos, uint8_t shift) {
-		uint8_t mask = 0xFF >> (8 - size);  // Mask, to size of the data
-		mergeData &= ~(mask << pos);  // Clear existing data at merge position
-		mask <<= (pos - shift);  // Shift mask to position of moved data
-		return mergeData |= ((newData & mask) << shift);  // Apply mask and merge
+	inline uint8_t mergeSlice(uint8_t newData, uint8_t mergeData, uint8_t mask, uint8_t offset) {
+		mergeData &= ~mask;  // Clear existing data at merge position
+		mask >>= offset;  // Move mask to position of extracted bits
+		return mergeData |= (newData & mask) << offset;  // Apply mask, move to original position, and merge
 	}
 
 	inline uint8_t mergeBit(boolean newBit, uint8_t mergeData, uint8_t pos) {

@@ -25,11 +25,11 @@
 
 #include "ExtensionController.h"
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYX = { 0, 6, 0, 0 };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYY = { 1, 6, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYX = NintendoExtensionCtrl::ControlByteMap(0, 6, 0, 0);
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYY = NintendoExtensionCtrl::ControlByteMap(1, 6, 0, 0);
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYX[3] = { 0, 2, 6, 3,  1, 2, 6, 5,  2, 1, 7, 7 };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYY = { 2, 5, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYX[3] = { NintendoExtensionCtrl::ControlByteMap(0, 2, 6, 3),  NintendoExtensionCtrl::ControlByteMap(1, 2, 6, 5),  NintendoExtensionCtrl::ControlByteMap(2, 1, 7, 7) };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYY = NintendoExtensionCtrl::ControlByteMap(2, 5, 0, 0);
 
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADUP = { 5, 0 };
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADDOWN = { 4, 6 };
@@ -41,8 +41,8 @@ constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_B = {
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_X = { 5, 3 };
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_Y = { 5, 5 };
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERL[2] = { 2, 2, 5, 2,  3, 3, 5, 5 };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERR = { 3, 5, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERL[2] = { NintendoExtensionCtrl::ControlByteMap(2, 2, 5, 2),  NintendoExtensionCtrl::ControlByteMap(3, 3, 5, 5) };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERR = NintendoExtensionCtrl::ControlByteMap(3, 5, 0, 0);
 
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_L = { 4, 5 };
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_R = { 4, 1 };

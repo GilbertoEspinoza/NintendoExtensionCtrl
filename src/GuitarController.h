@@ -35,8 +35,8 @@ constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_YELLOW
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_BLUE = { 5, 5 };
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_ORANGE = { 5, 7 };
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_WHAMMY = { 3, 5, 0, 0 };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_TOUCHBAR = { 2, 5, 0, 0 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_WHAMMY = NintendoExtensionCtrl::ControlByteMap(3, 5, 0, 0);
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_TOUCHBAR = NintendoExtensionCtrl::ControlByteMap(2, 5, 0, 0);
 
 class GuitarController : public ExtensionController {
 public:

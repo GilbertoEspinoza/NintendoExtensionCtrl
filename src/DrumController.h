@@ -35,8 +35,8 @@ constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_ORANGE 
 
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_PEDAL = { 5, 2 };
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY = { 3, 3, 5, 5 };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY_ID = { 2, 5, 1, 1 };
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY = NintendoExtensionCtrl::ControlByteMap(3, 3, 5, 5);
+constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY_ID = NintendoExtensionCtrl::ControlByteMap(2, 5, 1, 1 );
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE = { 2, 6 };
 
 enum NXC_DrumVelocityID {

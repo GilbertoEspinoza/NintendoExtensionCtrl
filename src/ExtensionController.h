@@ -53,6 +53,7 @@ public:
 	void reset();
 
 	NXC_ControllerType getConnectedID() const;
+
 	uint8_t getControlData(uint8_t controlIndex) const;
 	boolean getControlBit(uint8_t arrIndex, uint8_t bitNum) const;
 
@@ -80,14 +81,14 @@ private:
 
 protected:
 	uint8_t decodeControlByte(const NXCtrl::ControlByteMap map) const {
-		return NXCtrl::sliceByte(getControlData(map.index), map.size, map.position, map.offset);
+		return (getControlData(map.index) & map.mask) >> map.offset;
 	}
 
 	template<size_t size>
 	uint8_t decodeControlByte(const NXCtrl::ControlByteMap(&map)[size]) const {
 		uint8_t dataOut = 0x00;
 		for (size_t i = 0; i < size; i++) {
-			dataOut |= NXCtrl::sliceByte(getControlData(map[i].index), map[i].size, map[i].position, map[i].offset);
+			dataOut |= (getControlData(map[i].index) & map[i].mask) >> map[i].offset;
 		}
 		return dataOut;
 	}
@@ -97,7 +98,7 @@ protected:
 	}
 
 	void setControlData(uint8_t newData, const NXCtrl::ControlByteMap map) {
-		setControlData(NXCtrl::mergeSlice(newData, getControlData(map.index), map.size, map.position, map.offset), map.index);
+		setControlData(NXCtrl::mergeSlice(newData, getControlData(map.index), map.mask, map.offset), map.index);
 	}
 
 	template<size_t size>

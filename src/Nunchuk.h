@@ -36,9 +36,9 @@ namespace NintendoExtensionCtrl {
 constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYX = { 0 };
 constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYY = { 1 };
 
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELX = { 2, 2,  5, 2, 2, 2 };
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELY = { 3, 2,  5, 2, 4, 4 };
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELZ = { 4, 2,  5, 2, 6, 6 };
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELX = { 2, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 2, 2) };
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELY = { 3, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 4, 4) };
+constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELZ = { 4, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 6, 6) };
 
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_C = { 5, 1 };
 constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_Z = { 5, 0 };
@@ -76,7 +76,7 @@ public:
 protected:
 	uint16_t decodeAccelData(const NintendoExtensionCtrl::AccelControlMap map) const {
 		return (uint16_t)getControlData(map.msb) << map.offset |
-			NXCtrl::sliceByte(getControlData(map.lsb.index), map.lsb.size, map.lsb.position, map.lsb.offset);
+			NXCtrl::sliceByte(getControlData(map.lsb.index), map.lsb.mask, map.lsb.offset);
 	}
 
 	void setAccelControlData(uint16_t newData, const NintendoExtensionCtrl::AccelControlMap map) {
