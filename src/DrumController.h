@@ -26,19 +26,6 @@
 #include "ExtensionController.h"
 #include "ClassicController.h"  // For joy and +/- byte defines
 
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_RED = { 5, 6 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_BLUE = { 5, 3 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_GREEN = { 5, 4 };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_YELLOW = { 5, 5 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_ORANGE = { 5, 7 };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_PEDAL = { 5, 2 };
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY = NintendoExtensionCtrl::ControlByteMap(3, 3, 5, 5);
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY_ID = NintendoExtensionCtrl::ControlByteMap(2, 5, 1, 1 );
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE = { 2, 6 };
-
 enum NXC_DrumVelocityID {
 	NXC_Drum_None = 0x1F,
 	NXC_Drum_Red = 0x19,
@@ -100,6 +87,24 @@ public:
 	void velocity(uint8_t dataIn, NXC_DrumVelocityID idIn);
 
 	void printDebug(Stream& stream = NXC_SERIAL_DEFAULT) const;
+
+	// Control Data Mappings
+	typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+	typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_RED = { 5, 6 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_BLUE = { 5, 3 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_GREEN = { 5, 4 };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_YELLOW = { 5, 5 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_ORANGE = { 5, 7 };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_PEDAL = { 5, 2 };
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY = ControlByteMap(3, 3, 5, 5);
+	constexpr static ControlByteMap NXC_CTRLBYTE_DRUMS_VELOCITY_ID = ControlByteMap(2, 5, 1, 1);
+	constexpr static ControlBitMap  NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE = { 2, 6 };
+
 private:
 	boolean validVelocityID(uint8_t idIn) const;
 };

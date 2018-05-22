@@ -22,6 +22,26 @@
 
 #include "DJTurntable.h"
 
+typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+constexpr static ControlByteMap DJTurntableController::NXC_CTRLBYTE_DJ_EFFECT[2];
+constexpr static ControlByteMap DJTurntableController::NXC_CTRLBYTE_DJ_CROSSFADE;
+
+constexpr static ControlBitMap  DJTurntableController::NXC_CTRLBIT_DJ_EUPHORIA;
+
+constexpr static ControlByteMap DJTurntableController::TurntableLeft::NXC_CTRLBYTE_DJ_LEFT_TURNTABLE;
+constexpr static ControlByteMap DJTurntableController::TurntableLeft::NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN;
+constexpr static ControlBitMap  DJTurntableController::TurntableLeft::NXC_CTRLBIT_DJ_LEFT_GREEN;
+constexpr static ControlBitMap  DJTurntableController::TurntableLeft::NXC_CTRLBIT_DJ_LEFT_RED;
+constexpr static ControlBitMap  DJTurntableController::TurntableLeft::NXC_CTRLBIT_DJ_LEFT_BLUE;
+
+constexpr static ControlByteMap DJTurntableController::TurntableRight::NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE[3];
+constexpr static ControlByteMap DJTurntableController::TurntableRight::NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN;
+constexpr static ControlBitMap  DJTurntableController::TurntableRight::NXC_CTRLBIT_DJ_RIGHT_GREEN;
+constexpr static ControlBitMap  DJTurntableController::TurntableRight::NXC_CTRLBIT_DJ_RIGHT_RED;
+constexpr static ControlBitMap  DJTurntableController::TurntableRight::NXC_CTRLBIT_DJ_RIGHT_BLUE;
+
 DJTurntableController::DJTurntableController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_DJTurntable, 6), left(*this), right(*this) {}
 DJTurntableController::DJTurntableController(ExtensionData& busData) : ExtensionController(busData, NXC_DJTurntable, 6), left(*this), right(*this) {}
 
@@ -56,19 +76,19 @@ boolean DJTurntableController::buttonEuphoria() const {
 }
 
 uint8_t DJTurntableController::joyX() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t DJTurntableController::joyY() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 boolean DJTurntableController::buttonPlus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean DJTurntableController::buttonMinus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 void DJTurntableController::effectDial(uint8_t dataIn) {
@@ -86,19 +106,19 @@ void DJTurntableController::buttonEuphoria(boolean bitIn) {
 }
 
 void DJTurntableController::joyX(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 void DJTurntableController::joyY(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 void DJTurntableController::buttonPlus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 void DJTurntableController::buttonMinus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 NXC_DJTurntable_Configuration DJTurntableController::getTurntableConfig() {

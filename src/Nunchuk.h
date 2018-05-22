@@ -33,16 +33,6 @@ namespace NintendoExtensionCtrl {
 	};
 }
 
-constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYX = { 0 };
-constexpr static NintendoExtensionCtrl::ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYY = { 1 };
-
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELX = { 2, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 2, 2) };
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELY = { 3, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 4, 4) };
-constexpr static NintendoExtensionCtrl::AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELZ = { 4, 2,  NintendoExtensionCtrl::ControlByteMap(5, 2, 6, 6) };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_C = { 5, 1 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_NUNCHUK_Z = { 5, 0 };
-
 class Nunchuk : public ExtensionController {
 public:
 	Nunchuk(NXC_I2C_TYPE& i2cBus = NXC_I2C_DEFAULT);
@@ -72,6 +62,22 @@ public:
 	float pitchAngle() const;
 
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT) const;
+
+
+	typedef NintendoExtensionCtrl::ControlIndex    ControlIndex;
+	typedef NintendoExtensionCtrl::ControlByteMap  ControlByteMap;
+	typedef NintendoExtensionCtrl::ControlBitMap   ControlBitMap;
+	typedef NintendoExtensionCtrl::AccelControlMap AccelControlMap;
+
+	constexpr static ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYX = { 0 };
+	constexpr static ControlIndex NXC_CTRLBYTE_NUNCHUK_JOYY = { 1 };
+
+	constexpr static AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELX = { 2, 2,  ControlByteMap(5, 2, 2, 2) };
+	constexpr static AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELY = { 3, 2,  ControlByteMap(5, 2, 4, 4) };
+	constexpr static AccelControlMap NXC_CTRLBYTE_NUNCHUK_ACCELZ = { 4, 2,  ControlByteMap(5, 2, 6, 6) };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_NUNCHUK_C = { 5, 1 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_NUNCHUK_Z = { 5, 0 };
 
 protected:
 	uint16_t decodeAccelData(const NintendoExtensionCtrl::AccelControlMap map) const {

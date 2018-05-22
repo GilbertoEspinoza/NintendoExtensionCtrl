@@ -26,23 +26,6 @@
 #include "ExtensionController.h"
 #include "ClassicController.h"  // For joy and +/- byte defines
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE = NintendoExtensionCtrl::ControlByteMap(3, 5, 0, 0);
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN = NintendoExtensionCtrl::ControlByteMap(4, 1, 0, 0);
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_GREEN = { 5, 3 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_RED = { 4, 5 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_LEFT_BLUE = { 5, 7 };
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE[3] = { NintendoExtensionCtrl::ControlByteMap(0, 2, 6, 3), NintendoExtensionCtrl::ControlByteMap(1, 2, 6, 5),  NintendoExtensionCtrl::ControlByteMap(2, 1, 7, 7) };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN = NintendoExtensionCtrl::ControlByteMap(2, 1, 0, 0);
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_GREEN = { 5, 5 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_RED = { 4, 1 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_BLUE = { 5, 2 };
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_EFFECT[2] = { NintendoExtensionCtrl::ControlByteMap(2, 2, 5, 2),  NintendoExtensionCtrl::ControlByteMap(3, 3, 5, 5) };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_DJ_CROSSFADE = NintendoExtensionCtrl::ControlByteMap(2, 4, 1, 1);
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_DJ_EUPHORIA = { 5, 4 };
-
 enum NXC_DJTurntable_Configuration {
 	NXC_DJTurntable_BaseOnly,
 	NXC_DJTurntable_Left,
@@ -88,6 +71,15 @@ public:
 	NXC_DJTurntable_Configuration getTurntableConfig();
 	uint8_t getNumTurntables();
 
+	// Control Data Mappings (More defined per-turntable)
+	typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+	typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_DJ_EFFECT[2] = { ControlByteMap(2, 2, 5, 2),  ControlByteMap(3, 3, 5, 5) };
+	constexpr static ControlByteMap NXC_CTRLBYTE_DJ_CROSSFADE = ControlByteMap(2, 4, 1, 1);
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_DJ_EUPHORIA = { 5, 4 };
+
 	class TurntableExpansion {
 	public:
 		TurntableExpansion(NXC_DJTurntable_Configuration conf, DJTurntableController &baseObj)
@@ -127,6 +119,12 @@ public:
 		void buttonGreen(boolean bitIn);
 		void buttonRed(boolean bitIn);
 		void buttonBlue(boolean bitIn);
+
+		constexpr static ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE = ControlByteMap(3, 5, 0, 0);
+		constexpr static ControlByteMap NXC_CTRLBYTE_DJ_LEFT_TURNTABLE_SIGN = ControlByteMap(4, 1, 0, 0);
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_LEFT_GREEN = { 5, 3 };
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_LEFT_RED = { 4, 5 };
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_LEFT_BLUE = { 5, 7 };
 	} left;
 
 	class TurntableRight: public TurntableExpansion {
@@ -144,6 +142,12 @@ public:
 		void buttonGreen(boolean bitIn);
 		void buttonRed(boolean bitIn);
 		void buttonBlue(boolean bitIn);
+
+		constexpr static ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE[3] = { ControlByteMap(0, 2, 6, 3), ControlByteMap(1, 2, 6, 5),  ControlByteMap(2, 1, 7, 7) };
+		constexpr static ControlByteMap NXC_CTRLBYTE_DJ_RIGHT_TURNTABLE_SIGN = ControlByteMap(2, 1, 0, 0);
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_GREEN = { 5, 5 };
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_RED = { 4, 1 };
+		constexpr static ControlBitMap  NXC_CTRLBIT_DJ_RIGHT_BLUE = { 5, 2 };
 	} right;
 
 	class EffectRollover : private NXCtrl::RolloverChange {

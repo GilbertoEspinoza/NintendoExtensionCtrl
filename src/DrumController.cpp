@@ -22,15 +22,31 @@
 
 #include "DrumController.h"
 
+typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_RED;
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_BLUE;
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_GREEN;
+
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_YELLOW;
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_ORANGE;
+
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_PEDAL;
+
+constexpr static ControlByteMap DrumController::NXC_CTRLBYTE_DRUMS_VELOCITY;
+constexpr static ControlByteMap DrumController::NXC_CTRLBYTE_DRUMS_VELOCITY_ID;
+constexpr static ControlBitMap  DrumController::NXC_CTRLBIT_DRUMS_VELOCITY_AVAILABLE;
+
 DrumController::DrumController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_DrumController, 6) {}
 DrumController::DrumController(ExtensionData& busData) : ExtensionController(busData, NXC_DrumController, 6) {}
 
 uint8_t DrumController::joyX() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t DrumController::joyY() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 boolean DrumController::drumRed() const {
@@ -58,11 +74,11 @@ boolean DrumController::bassPedal() const {
 }
 
 boolean DrumController::buttonPlus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean DrumController::buttonMinus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 boolean DrumController::velocityAvailable() const {
@@ -136,11 +152,11 @@ uint8_t DrumController::velocityPedal() const {
 }
 
 void DrumController::joyX(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 void DrumController::joyY(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 void DrumController::drumRed(boolean bitIn) {
@@ -168,11 +184,11 @@ void DrumController::bassPedal(boolean bitIn) {
 }
 
 void DrumController::buttonPlus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 void DrumController::buttonMinus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 void DrumController::velocity(uint8_t dataIn, NXC_DrumVelocityID idIn) {

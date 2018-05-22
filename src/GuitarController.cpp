@@ -22,15 +22,30 @@
 
 #include "GuitarController.h"
 
+typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_STRUMUP;
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_STRUMDOWN;
+
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_GREEN;
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_RED;
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_YELLOW;
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_BLUE;
+constexpr static ControlBitMap  GuitarController::NXC_CTRLBIT_GUITAR_ORANGE;
+
+constexpr static ControlByteMap GuitarController::NXC_CTRLBYTE_GUITAR_WHAMMY;
+constexpr static ControlByteMap GuitarController::NXC_CTRLBYTE_GUITAR_TOUCHBAR;
+
 GuitarController::GuitarController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_GuitarController, 6) {}
 GuitarController::GuitarController(ExtensionData& busData) : ExtensionController(busData, NXC_GuitarController, 6) {}
 
 uint8_t GuitarController::joyX() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 uint8_t GuitarController::joyY() const {
-	return decodeControlByte(NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	return decodeControlByte(ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 boolean GuitarController::strum() const {
@@ -95,19 +110,19 @@ boolean GuitarController::touchOrange() const {
 }
 
 boolean GuitarController::buttonPlus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_PLUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 boolean GuitarController::buttonMinus() const {
-	return getControlBit(NXC_CTRLBIT_CLASSIC_MINUS);
+	return getControlBit(ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 void GuitarController::joyX(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX);
 }
 
 void GuitarController::joyY(uint8_t dataIn) {
-	setControlData(dataIn, NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
+	setControlData(dataIn, ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY);
 }
 
 void GuitarController::strumUp(boolean bitIn) {
@@ -147,11 +162,11 @@ void GuitarController::touchbar(uint8_t dataIn) {
 }
 
 void GuitarController::buttonPlus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_PLUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_PLUS);
 }
 
 void GuitarController::buttonMinus(boolean bitIn) {
-	setControlBit(bitIn, NXC_CTRLBIT_CLASSIC_MINUS);
+	setControlBit(bitIn, ClassicController::NXC_CTRLBIT_CLASSIC_MINUS);
 }
 
 boolean GuitarController::supportsTouchbar() {

@@ -22,6 +22,20 @@
 
 #include "Nunchuk.h"
 
+typedef NintendoExtensionCtrl::ControlIndex    ControlIndex;
+typedef NintendoExtensionCtrl::ControlBitMap   ControlBitMap;
+typedef NintendoExtensionCtrl::AccelControlMap AccelControlMap;
+
+constexpr static ControlIndex Nunchuk::NXC_CTRLBYTE_NUNCHUK_JOYX;
+constexpr static ControlIndex Nunchuk::NXC_CTRLBYTE_NUNCHUK_JOYY;
+
+constexpr static AccelControlMap Nunchuk::NXC_CTRLBYTE_NUNCHUK_ACCELX;
+constexpr static AccelControlMap Nunchuk::NXC_CTRLBYTE_NUNCHUK_ACCELY;
+constexpr static AccelControlMap Nunchuk::NXC_CTRLBYTE_NUNCHUK_ACCELZ;
+
+constexpr static ControlBitMap  Nunchuk::NXC_CTRLBIT_NUNCHUK_C;
+constexpr static ControlBitMap  Nunchuk::NXC_CTRLBIT_NUNCHUK_Z;
+
 Nunchuk::Nunchuk(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_Nunchuk, 6) {}
 Nunchuk::Nunchuk(ExtensionData& busData) : ExtensionController(busData, NXC_Nunchuk, 6) {}
 

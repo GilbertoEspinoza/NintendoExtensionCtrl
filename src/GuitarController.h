@@ -26,18 +26,6 @@
 #include "ExtensionController.h"
 #include "ClassicController.h"  // For joy and +/- byte defines
 
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_STRUMUP = { 5, 0 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_STRUMDOWN = { 4, 6 };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_GREEN = { 5, 4 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_RED = { 5, 6 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_YELLOW = { 5, 3 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_BLUE = { 5, 5 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_GUITAR_ORANGE = { 5, 7 };
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_WHAMMY = NintendoExtensionCtrl::ControlByteMap(3, 5, 0, 0);
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_GUITAR_TOUCHBAR = NintendoExtensionCtrl::ControlByteMap(2, 5, 0, 0);
-
 class GuitarController : public ExtensionController {
 public:
 	GuitarController(NXC_I2C_TYPE& i2cBus = NXC_I2C_DEFAULT);
@@ -90,6 +78,22 @@ public:
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT);
 
 	boolean supportsTouchbar();
+
+	// Control Data Mappings
+	typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+	typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_STRUMUP = { 5, 0 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_STRUMDOWN = { 4, 6 };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_GREEN = { 5, 4 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_RED = { 5, 6 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_YELLOW = { 5, 3 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_BLUE = { 5, 5 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_GUITAR_ORANGE = { 5, 7 };
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_GUITAR_WHAMMY = ControlByteMap(3, 5, 0, 0);
+	constexpr static ControlByteMap NXC_CTRLBYTE_GUITAR_TOUCHBAR = ControlByteMap(2, 5, 0, 0);
 
 private:
 	boolean touchbarData = false;  // Flag for touchbar data found

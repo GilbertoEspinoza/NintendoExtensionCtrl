@@ -22,6 +22,37 @@
 
 #include "ClassicController.h"
 
+typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYX;
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_LEFTJOYY;
+
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_RIGHTJOYX[3];
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_RIGHTJOYY;
+
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_DPADUP;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_DPADDOWN;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_DPADLEFT;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_DPADRIGHT;
+
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_A;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_B;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_X;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_Y;
+
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_TRIGGERL[2];
+constexpr static ControlByteMap ClassicController::NXC_CTRLBYTE_CLASSIC_TRIGGERR;
+
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_L;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_R;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_ZL;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_ZR;
+
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_PLUS;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_MINUS;
+constexpr static ControlBitMap  ClassicController::NXC_CTRLBIT_CLASSIC_HOME;
+
 ClassicController::ClassicController(NXC_I2C_TYPE& i2cBus) : ExtensionController(i2cBus, NXC_ClassicController, 6) {}
 ClassicController::ClassicController(ExtensionData& busData) : ExtensionController(busData, NXC_ClassicController, 6) {}
 

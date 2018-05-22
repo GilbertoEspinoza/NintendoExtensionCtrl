@@ -25,34 +25,6 @@
 
 #include "ExtensionController.h"
 
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYX = NintendoExtensionCtrl::ControlByteMap(0, 6, 0, 0);
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYY = NintendoExtensionCtrl::ControlByteMap(1, 6, 0, 0);
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYX[3] = { NintendoExtensionCtrl::ControlByteMap(0, 2, 6, 3),  NintendoExtensionCtrl::ControlByteMap(1, 2, 6, 5),  NintendoExtensionCtrl::ControlByteMap(2, 1, 7, 7) };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYY = NintendoExtensionCtrl::ControlByteMap(2, 5, 0, 0);
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADUP = { 5, 0 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADDOWN = { 4, 6 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADLEFT = { 5, 1 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADRIGHT = { 4, 7 };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_A = { 5, 4 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_B = { 5, 6 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_X = { 5, 3 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_Y = { 5, 5 };
-
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERL[2] = { NintendoExtensionCtrl::ControlByteMap(2, 2, 5, 2),  NintendoExtensionCtrl::ControlByteMap(3, 3, 5, 5) };
-constexpr static NintendoExtensionCtrl::ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERR = NintendoExtensionCtrl::ControlByteMap(3, 5, 0, 0);
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_L = { 4, 5 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_R = { 4, 1 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_ZL = { 5, 7 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_ZR = { 5, 2 };
-
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_PLUS = { 4, 2 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_MINUS = { 4, 4 };
-constexpr static NintendoExtensionCtrl::ControlBitMap  NXC_CTRLBIT_CLASSIC_HOME = { 4, 3 };
-
 class ClassicController : public ExtensionController {
 public:
 	ClassicController(NXC_I2C_TYPE& i2cBus = NXC_I2C_DEFAULT);
@@ -125,6 +97,38 @@ public:
 	void buttonHome(boolean bitIn);
 
 	void printDebug(Stream& stream=NXC_SERIAL_DEFAULT) const;
+
+	// Control Data Mappings
+	typedef NintendoExtensionCtrl::ControlByteMap ControlByteMap;
+	typedef NintendoExtensionCtrl::ControlBitMap  ControlBitMap;
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYX = ControlByteMap(0, 6, 0, 0);
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_LEFTJOYY = ControlByteMap(1, 6, 0, 0);
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYX[3] = { ControlByteMap(0, 2, 6, 3),  ControlByteMap(1, 2, 6, 5),  ControlByteMap(2, 1, 7, 7) };
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_RIGHTJOYY = ControlByteMap(2, 5, 0, 0);
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADUP = { 5, 0 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADDOWN = { 4, 6 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADLEFT = { 5, 1 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_DPADRIGHT = { 4, 7 };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_A = { 5, 4 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_B = { 5, 6 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_X = { 5, 3 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_Y = { 5, 5 };
+
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERL[2] = { ControlByteMap(2, 2, 5, 2),  ControlByteMap(3, 3, 5, 5) };
+	constexpr static ControlByteMap NXC_CTRLBYTE_CLASSIC_TRIGGERR = ControlByteMap(3, 5, 0, 0);
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_L = { 4, 5 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_R = { 4, 1 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_ZL = { 5, 7 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_ZR = { 5, 2 };
+
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_PLUS = { 4, 2 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_MINUS = { 4, 4 };
+	constexpr static ControlBitMap  NXC_CTRLBIT_CLASSIC_HOME = { 4, 3 };
 };
 
 #endif
